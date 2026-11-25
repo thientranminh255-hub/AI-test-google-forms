@@ -1,0 +1,17 @@
+=== HUONG DAN CAI DAT & SU DUNG ===
+
+1. Tao moi truong ao va cai thu vien:
+   python -m venv .venv
+   source .venv/bin/activate   (Windows: .venv\Scripts\activate)
+   pip install -r requirements.txt
+   playwright install chromium
+
+2. Cau hinh API Key:
+   - Doi ten file ".env.example" thanh ".env"
+   - Lay API Key mien phi tai https://aistudio.google.com/ va dan vao sau dau = trong file .env
+
+3. Tuy chinh doi tuong khao sat:
+   - Mo file "personas.txt", moi dong viet mo ta 1 nguoi tham gia khao sat (tuoi, nghe nghiep, quan diem...) phu hop voi Form cua ban.
+
+4. Chay chuong trinh:
+   python main.py

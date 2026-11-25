@@ -1,0 +1,34 @@
+Nhap Google Forms URL: 
+Cau 1: Câu 1: Anh/Chị là gì của người thân lớn tuổi đó?
+Loai: multiple_choice
+Lua chon: ['Con', 'Cháu', 'Người chăm sóc hoặc họ hàng khác']
+
+Cau 2: Câu 2: Độ tuổi của người thân lớn tuổi đó:
+Loai: multiple_choice
+Lua chon: ['50–59 tuổi', '60–69 tuổi', 'Từ 70 tuổi trở lên']
+
+Cau 3: Câu 3: Theo Anh/Chị quan sát, người thân gặp khó khăn nào lớn nhất khi dùng (hoặc khi nghĩ đến việc dùng) các ứng dụng này? (có thể chọn nhiều)
+Loai: checkboxes
+Lua chon: ['Chữ nhỏ, nhiều nút, nhiều bước nên dễ bị lạc', 'Thuật ngữ khó hiểu, khó nhập mật khẩu, mã OTP, xác thực khuôn mặt/vân tay', 'Sợ bấm nhầm, chuyển nhầm tiền', 'Sợ bị lừa đảo, bị lộ thông tin hoặc mất tiền', 'Không có ai hướng dẫn kiên nhẫn', 'Quen dùng tiền mặt hơn, thấy không cần thiết']
+
+Cau 4: Câu 4: Anh/Chị thường hỗ trợ người thân dùng các ứng dụng này như thế nào?
+Loai: multiple_choice
+Lua chon: ['Làm hộ hoàn toàn (chuyển tiền, thanh toán, xem số dư…)', 'Hướng dẫn rồi để người thân tự làm', 'Chỉ giúp khi người thân gặp sự cố', 'Không hỗ trợ, người thân tự làm được', 'Người thân không dùng các ứng dụng này']
+
+Cau 5: Câu 5: Khi ứng dụng yêu cầu nhập thông tin cá nhân (số CCCD, số điện thoại), mã OTP hoặc xác thực sinh trắc học, tâm lý của người thân như thế nào?
+Loai: multiple_choice
+Lua chon: ['Rất lo lắng', 'Có chút e ngại nhưng vẫn làm vì cần thiết', 'Bình thường, không lo lắng gì']
+
+Cau 6: Câu 6: Người thân của Anh/Chị đã từng gặp tình huống lừa đảo nào khi giao dịch trực tuyến?
+Loai: multiple_choice
+Lua chon: ['Đã bị lừa và mất tiền', 'Suýt bị lừa nhưng kịp nhận ra', 'Chưa từng gặp', 'Anh/Chị không rõ']
+
+Cau 7: Câu 7: Điều gì sẽ giúp người thân dễ dùng và yên tâm hơn khi sử dụng ứng dụng ngân hàng số, ví điện tử? (có thể chọn nhiều)
+Loai: checkboxes
+Lua chon: ['Giao diện chữ lớn, ít nút, chỉ có các chức năng cần thiết', 'Có hướng dẫn từng bước bằng hình ảnh hoặc giọng nói', 'Có chế độ tập dùng thử, không mất tiền thật', 'Có cảnh báo tin nhắn, cuộc gọi, đường link đáng ngờ', 'Được con cháu hoặc nhân viên ngân hàng hướng dẫn trực tiếp', 'Người thân (con cháu) duyệt thêm khi chuyển số tiền lớn']
+
+Cau 8: Câu 8: Anh/Chị có chia sẻ hoặc góp ý thêm gì về những khó khăn, lo lắng của người thân khi dùng ứng dụng ngân hàng số, ví điện tử hiện nay không?
+Loai: paragraph
+Lua chon: []
+
+Tong so cau hoi: 8
