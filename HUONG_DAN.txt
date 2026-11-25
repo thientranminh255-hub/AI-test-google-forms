@@ -5,6 +5,7 @@
    source .venv/bin/activate   (Windows: .venv\Scripts\activate)
    pip install -r requirements.txt
    playwright install chromium
+   python test_reader.py | tee reader_output.txt (để link gg form vào đeẻ tạo mẫu ở reader_output)
 
 2. Cau hinh API Key:
    - Doi ten file ".env.example" thanh ".env"
