@@ -5,3 +5,4 @@ __pycache__/
 *.pyc
 all_code.txt
 .DS_Store
+browser_profile/

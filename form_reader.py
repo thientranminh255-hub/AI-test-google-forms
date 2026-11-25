@@ -128,7 +128,6 @@ def _fill_single_item(page, item, q_type: str, chosen: list[str]):
                     clicked = True
                     break
             if not clicked:
-                # Chọn cột ở giữa/cuối để tự nhiên nếu lệch chữ
                 radios.nth(min(1, radios.count() - 1)).click()
 
     elif q_type == "multiple_choice" or item.locator('[role="radio"]').count():
@@ -203,26 +202,41 @@ def _fill_single_item(page, item, q_type: str, chosen: list[str]):
 def read_google_form(url: str) -> list[dict]:
     _validate_url(url)
     with sync_playwright() as p:
-        browser = p.chromium.launch(headless=True)
-        page = browser.new_page()
+        context = p.chromium.launch_persistent_context(
+            user_data_dir="./browser_profile",
+            headless=True,
+            args=["--disable-blink-features=AutomationControlled"]
+        )
+        page = context.pages[0] if context.pages else context.new_page()
         try:
             page.goto(url, wait_until="domcontentloaded", timeout=30000)
             page.wait_for_timeout(2500)
             return _extract_questions_on_current_page(page)
         finally:
-            browser.close()
+            context.close()
 
 
 def fill_and_submit_google_form(url: str, analyze_callback, user_context: str, headless: bool = False) -> bool:
-    """Mở form, điền chính xác 100% câu hỏi theo index, rà soát sót câu và bấm Gửi."""
+    """Mở form (lưu phiên đăng nhập Google), điền chính xác 100% câu hỏi và bấm Gửi."""
     _validate_url(url)
 
     with sync_playwright() as p:
-        browser = p.chromium.launch(headless=headless)
-        page = browser.new_page()
+        context = p.chromium.launch_persistent_context(
+            user_data_dir="./browser_profile",
+            headless=headless,
+            args=["--disable-blink-features=AutomationControlled"]
+        )
+        page = context.pages[0] if context.pages else context.new_page()
         try:
             page.goto(url, wait_until="domcontentloaded", timeout=30000)
             page.wait_for_timeout(2000)
+
+            # Tự động phát hiện nếu Google Form yêu cầu đăng nhập
+            if "accounts.google.com" in page.url or page.locator('text="Đăng nhập để tiếp tục"').count() > 0 or page.locator('text="Sign in to continue"').count() > 0:
+                print("\n[!] Form nay yeu cau dang nhap tai khoan Google.")
+                print("    -> Hay dang nhap Gmail truc tiep tren cua so trinh duyet vua mo.")
+                input("    -> Sau khi dang nhap xong va thay trang cau hoi hien ra, bam ENTER tai day de tiep tuc...")
+                page.wait_for_timeout(1500)
 
             while True:
                 page_questions = _extract_questions_on_current_page(page)
@@ -232,7 +246,6 @@ def fill_and_submit_google_form(url: str, analyze_callback, user_context: str, h
 
                     items = page.locator('div[role="listitem"]')
 
-                    # Khớp trực tiếp theo thứ tự câu hỏi (không bao giờ trượt do lệch text)
                     for idx, q_meta in enumerate(page_questions):
                         item = items.nth(q_meta["index"])
                         chosen = (
@@ -281,4 +294,4 @@ def fill_and_submit_google_form(url: str, analyze_callback, user_context: str, h
                     raise RuntimeError(f"Không tìm thấy nút Gửi/Tiếp. Các nút trên trang: {visible_btns}")
 
         finally:
-            browser.close()
+            context.close()
