@@ -67,7 +67,22 @@ def _extract_questions_on_current_page(page) -> list[dict]:
                 option_texts.append(option_text.strip())
 
         if item.locator('[role="radio"]').count():
-            question_type = "multiple_choice"
+            # Kiểm tra xem có phải Thang đo tuyến tính (Linear Scale 1 -> 5) không
+            radios = item.locator('[role="radio"]')
+            first_lbl = (radios.first.get_attribute("aria-label") or "").strip()
+            last_lbl = (radios.last.get_attribute("aria-label") or "").strip()
+            if first_lbl.isdigit() and last_lbl.isdigit():
+                question_type = "linear_scale"
+                # Lấy nhãn mô tả 2 đầu thang đo (ví dụ: Không hề khó khăn <-> Rất khó khăn)
+                scale_texts = [t.strip() for t in item.locator('.V4d7Ke, .Zki2Ve, .OIC90c').all_inner_texts() if t.strip() and not t.strip().isdigit()]
+                low_desc = scale_texts[0] if len(scale_texts) >= 1 else "Mức thấp nhất / Rất dễ"
+                high_desc = scale_texts[-1] if len(scale_texts) >= 2 else "Mức cao nhất / Rất khó"
+                option_texts = [
+                    f"{opt} ({low_desc})" if idx == 0 else (f"{opt} ({high_desc})" if idx == len(option_texts) - 1 else opt)
+                    for idx, opt in enumerate(option_texts)
+                ]
+            else:
+                question_type = "multiple_choice"
         elif item.locator('[role="checkbox"]').count():
             question_type = "checkboxes"
         elif item.locator('[role="listbox"]').count():
